@@ -1,20 +1,9 @@
 <resources>
     <string name="app_name">GithubUserApp</string>
-    <string name="user_name" />
-    <string name="location" />
-
-    <string-array name="username">
-        <item>JakeWharton</item>
-        <item>amitshekhariitbhu</item>
-        <item>romainguy</item>
-        <item>chrisbanes</item>
-        <item>tipsy</item>
-        <item>ravi8x</item>
-        <item>jasoet</item>
-        <item>budioktaviyan</item>
-        <item>hendisantika</item>
-        <item>sidiqpermana</item>
-    </string-array>
+    <string name="user_name">Username</string>
+    <string name="location">Location</string>
+    <string name="description">Description</string>
+    <string name="profile_image">profile_image</string>
 
     <string-array name="name">
         <item>Jake Wharton</item>
@@ -26,7 +15,33 @@
         <item>Deny Prasetyo</item>
         <item>Budi Oktaviyan</item>
         <item>Hendi Santika</item>
-        <item>Sidiq Permana</item>
+<!--        <item>Sidiq Permana</item>-->
+    </string-array>
+
+    <string-array name="username">
+        <item>JakeWharton</item>
+        <item>amitshekhariitbhu</item>
+        <item>romainguy</item>
+        <item>chrisbanes</item>
+        <item>tipsy</item>
+        <item>ravi8x</item>
+        <item>jasoet</item>
+        <item>budioktaviyan</item>
+        <item>hendisantika</item>
+<!--        <item>sidiqpermana</item>-->
+    </string-array>
+
+    <string-array name="description">
+        <item>only documented features!</item>
+        <item>Interest about Dev(Sec)Ops</item>
+        <item>Cybersecurity Enthusiast</item>
+        <item>I am interested in android development.</item>
+        <item>Front End Enthusiast</item>
+        <item>Informatics Engineering</item>
+        <item>I am interested in software development</item>
+        <item>Hackathon Addict.</item>
+        <item>Frontend Developer is my current lifetime target</item>
+<!--        <item>Serial Product Creator.</item>-->
     </string-array>
 
     <string-array name="location">
@@ -39,8 +54,21 @@
         <item>Kotagede, Yogyakarta, Indonesia</item>
         <item>Jakarta, Indonesia</item>
         <item>Bojongsoang - Bandung Jawa Barat</item>
-        <item>Jakarta Indonesia</item>
+<!--        <item>Jakarta Indonesia</item>-->
     </string-array>
+
+    <integer-array name="avatar">
+        <item>@drawable/user1</item>
+        <item>@drawable/user2</item>
+        <item>@drawable/user3</item>
+        <item>@drawable/user4</item>
+        <item>@drawable/user5</item>
+        <item>@drawable/user6</item>
+        <item>@drawable/user7</item>
+        <item>@drawable/user8</item>
+        <item>@drawable/user9</item>
+<!--        <item>@drawable/user10</item>-->
+    </integer-array>
 
     <string-array name="repository">
         <item>102</item>
@@ -52,7 +80,7 @@
         <item>44</item>
         <item>110</item>
         <item>1064</item>
-        <item>65</item>
+<!--        <item>65</item>-->
     </string-array>
 
     <string-array name="company">
@@ -65,7 +93,7 @@
         <item>gojek-engineering</item>
         <item>KotlinID</item>
         <item>JVMDeveloperID @KotlinID @IDDevOps</item>
-        <item>Nusantara Beta Studio</item>
+<!--        <item>Nusantara Beta Studio</item>-->
     </string-array>
 
     <string-array name="followers">
@@ -78,7 +106,7 @@
         <item>277</item>
         <item>178</item>
         <item>428</item>
-        <item>465</item>
+<!--        <item>465</item>-->
     </string-array>
 
     <string-array name="following">
@@ -91,20 +119,7 @@
         <item>39</item>
         <item>23</item>
         <item>61</item>
-        <item>10</item>
-    </string-array>
-
-    <string-array name="avatar">
-        <item>@drawable/user1</item>
-        <item>@drawable/user2</item>
-        <item>@drawable/user3</item>
-        <item>@drawable/user4</item>
-        <item>@drawable/user5</item>
-        <item>@drawable/user6</item>
-        <item>@drawable/user7</item>
-        <item>@drawable/user8</item>
-        <item>@drawable/user9</item>
-        <item>@drawable/user10</item>
+<!--        <item>10</item>-->
     </string-array>
 
 </resources>
