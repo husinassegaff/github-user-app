@@ -27,19 +27,32 @@
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/profile_image" />
 
         <TextView
             android:id="@+id/tv_item_name"
-            android:layout_width="170dp"
+            android:layout_width="118dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            card_view:layout_constraintEnd_toStartOf="@+id/tv_item_username"
+            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
+            card_view:layout_constraintTop_toTopOf="@+id/img_item_photo" />
+
+        <TextView
+            android:id="@+id/tv_item_username"
+            android:layout_width="117dp"
             android:layout_height="20dp"
             android:layout_marginEnd="8dp"
             android:layout_toEndOf="@id/img_item_photo"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:textSize="11sp"
+            android:textStyle="normal"
+            card_view:layout_constraintBottom_toBottomOf="@+id/tv_item_name"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.703"
-            card_view:layout_constraintStart_toEndOf="@+id/textView2"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_item_name"
             card_view:layout_constraintTop_toTopOf="@+id/img_item_photo"
             tools:text="@string/user_name" />
 
@@ -48,23 +61,28 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="20dp"
             android:ellipsize="end"
             android:maxLines="5"
+            android:paddingBottom="32dp"
             card_view:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
-            card_view:layout_constraintEnd_toEndOf="@+id/tv_item_name"
-            card_view:layout_constraintStart_toStartOf="@+id/textView2"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
+            card_view:layout_constraintEnd_toEndOf="@+id/tv_item_username"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toStartOf="@+id/tv_item_name"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_username"
             card_view:layout_constraintVertical_bias="0.0"
-            tools:text="@string/location" />
+            tools:text="@string/description" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="62dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
-            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            card_view:layout_constraintTop_toTopOf="@+id/img_item_photo" />
+            android:id="@+id/tv_item_location"
+            android:layout_width="242dp"
+            android:layout_height="13dp"
+            android:textSize="11sp"
+            android:textStyle="normal"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="@+id/tv_item_description"
+            card_view:layout_constraintStart_toStartOf="@+id/tv_item_description"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
