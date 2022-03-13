@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">GithubUserApp</string>
+    <string name="app_name">Github User</string>
     <string name="user_name">Username</string>
     <string name="location">Location</string>
     <string name="description">Description</string>
     <string name="profile_image">profile_image</string>
+    <string name="splash_github">splash_github</string>
 
     <string-array name="name">
         <item>Jake Wharton</item>
@@ -15,7 +16,7 @@
         <item>Deny Prasetyo</item>
         <item>Budi Oktaviyan</item>
         <item>Hendi Santika</item>
-<!--        <item>Sidiq Permana</item>-->
+        <item>Sidiq Permana</item>
     </string-array>
 
     <string-array name="username">
@@ -28,20 +29,20 @@
         <item>jasoet</item>
         <item>budioktaviyan</item>
         <item>hendisantika</item>
-<!--        <item>sidiqpermana</item>-->
+        <item>sidiqpermana</item>
     </string-array>
 
     <string-array name="description">
-        <item>only documented features!</item>
-        <item>Interest about Dev(Sec)Ops</item>
-        <item>Cybersecurity Enthusiast</item>
-        <item>I am interested in android development.</item>
-        <item>Front End Enthusiast</item>
-        <item>Informatics Engineering</item>
-        <item>I am interested in software development</item>
-        <item>Hackathon Addict.</item>
-        <item>Frontend Developer is my current lifetime target</item>
-<!--        <item>Serial Product Creator.</item>-->
+        <item>only documented features! I am interested to learn all about technology. Especially web development</item>
+        <item>Interest about Dev(Sec)Ops. For now I am still expand my knowledge in DevOps</item>
+        <item>Cybersecurity Enthusiast. I like to find the bug from any websites, especially government website</item>
+        <item>I am interested in android development. And you can ask anything about android</item>
+        <item>Front End Enthusiast. I am freelancer, so you can tell me if need help of design website</item>
+        <item>Informatics Engineering. I am student in Indonesian and I learn about any tech stack webdev</item>
+        <item>I am interested in software development, but I am working as a Backend Engineer for now</item>
+        <item>Hackathon Addict. I am learning about web and mobile development, especially ReactJs and React Native</item>
+        <item>Frontend Developer is my current lifetime target. And another my lifetime target is work in Google</item>
+        <item>Serial Product Creator. And my work now is A Project Manager at GoTo Indonesia</item>
     </string-array>
 
     <string-array name="location">
@@ -54,7 +55,7 @@
         <item>Kotagede, Yogyakarta, Indonesia</item>
         <item>Jakarta, Indonesia</item>
         <item>Bojongsoang - Bandung Jawa Barat</item>
-<!--        <item>Jakarta Indonesia</item>-->
+        <item>Jakarta Indonesia</item>
     </string-array>
 
     <integer-array name="avatar">
@@ -67,7 +68,7 @@
         <item>@drawable/user7</item>
         <item>@drawable/user8</item>
         <item>@drawable/user9</item>
-<!--        <item>@drawable/user10</item>-->
+        <item>@drawable/user10</item>
     </integer-array>
 
     <string-array name="repository">
@@ -80,7 +81,7 @@
         <item>44</item>
         <item>110</item>
         <item>1064</item>
-<!--        <item>65</item>-->
+        <item>65</item>
     </string-array>
 
     <string-array name="company">
@@ -93,7 +94,7 @@
         <item>gojek-engineering</item>
         <item>KotlinID</item>
         <item>JVMDeveloperID @KotlinID @IDDevOps</item>
-<!--        <item>Nusantara Beta Studio</item>-->
+        <item>Nusantara Beta Studio</item>
     </string-array>
 
     <string-array name="followers">
@@ -106,7 +107,7 @@
         <item>277</item>
         <item>178</item>
         <item>428</item>
-<!--        <item>465</item>-->
+        <item>465</item>
     </string-array>
 
     <string-array name="following">
@@ -119,7 +120,7 @@
         <item>39</item>
         <item>23</item>
         <item>61</item>
-<!--        <item>10</item>-->
+        <item>10</item>
     </string-array>
 
 </resources>
