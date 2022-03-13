@@ -9,5 +9,7 @@ data class User(
     var username: String,
     var description: String,
     var location: String,
-    var avatar: Int
+    var avatar: Int,
+    var index: Int
+
 ) : Parcelable
