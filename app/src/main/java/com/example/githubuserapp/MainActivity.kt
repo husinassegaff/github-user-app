@@ -1,6 +1,7 @@
 package com.example.githubuserapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,7 +33,14 @@ class MainActivity : AppCompatActivity() {
             val dataPhoto = resources.obtainTypedArray(R.array.avatar)
             val listUser = ArrayList<User>()
             for (i in dataName.indices) {
-                val user = User(dataName[i], dataUsername[i], dataDescription[i], dataLocation[i], dataPhoto.getResourceId(i, -1))
+                val user = User(
+                    dataName[i],
+                    dataUsername[i],
+                    dataDescription[i],
+                    dataLocation[i],
+                    dataPhoto.getResourceId(i, -1),
+                    i
+                )
                 listUser.add(user)
             }
             return listUser
@@ -42,5 +50,13 @@ class MainActivity : AppCompatActivity() {
         rvUsers.layoutManager = LinearLayoutManager(this)
         val listUserAdapter = ListUserAdapter(list)
         rvUsers.adapter = listUserAdapter
+
+        listUserAdapter.setOnItemClickCallback(object : ListUserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                val intentToDetail = Intent(this@MainActivity, DetailUser::class.java)
+                intentToDetail.putExtra("DATA",data)
+                startActivity(intentToDetail)
+            }
+        })
     }
 }
