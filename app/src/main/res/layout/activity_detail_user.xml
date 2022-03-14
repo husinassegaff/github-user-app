@@ -73,7 +73,7 @@
     <TextView
         android:id="@+id/data_company"
         style="@style/TextContent.Subtitle"
-        android:layout_width="206dp"
+        android:layout_width="wrap_content"
         android:layout_height="21dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/data_repository"
@@ -83,7 +83,7 @@
     <TextView
         android:id="@+id/data_location"
         style="@style/TextContent.Subtitle"
-        android:layout_width="164dp"
+        android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="@+id/data_company"

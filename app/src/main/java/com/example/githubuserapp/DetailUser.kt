@@ -28,10 +28,10 @@ class DetailUser : AppCompatActivity() {
             tvName.text = data.name
             tvUsername.text = data.username
             tvLocation.text = data.location
-            tvFollowers.text = "${resources.getStringArray(R.array.followers)[data.index]} Followers"
-            tvFollowing.text = "${resources.getStringArray(R.array.following)[data.index]} Following"
-            tvRepository.text = "${resources.getStringArray(R.array.repository)[data.index]} Repository"
-            tvCompany.text = resources.getStringArray(R.array.company)[data.index]
+            tvFollowers.text = "${data.followers} Followers"
+            tvFollowing.text = "${data.following} Following"
+            tvRepository.text = "${data.repository} Repository"
+            tvCompany.text = data.company
         }
     }
 }

@@ -27,8 +27,6 @@ class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adap
         holder.tvDescription.text = description
         holder.tvLocation.text = location
         holder.imgPhoto.setImageResource(avatar)
-        holder.index = position
-
 
         holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
     }
@@ -42,7 +40,6 @@ class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adap
         var tvDescription: TextView = itemView.findViewById(R.id.tv_item_description)
         var tvLocation: TextView = itemView.findViewById(R.id.tv_item_location)
         var imgPhoto: ImageView =  itemView.findViewById(R.id.img_item_photo)
-        var index = 0
     }
 
     interface OnItemClickCallback {
