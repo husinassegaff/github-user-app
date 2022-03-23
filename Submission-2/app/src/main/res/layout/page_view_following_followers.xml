@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:paddingBottom="4dp">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_following_followers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager_following_followers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabTextColor="@color/black_primary" >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_following"
+            style="@style/WrapContent"
+            android:layout_gravity="center"
+            android:text="@string/tab_following" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_followers"
+            style="@style/WrapContent"
+            android:layout_gravity="center"
+            android:text="@string/tab_followers" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager_following_followers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:fitsSystemWindows="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabs_following_followers"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        style="@style/WrapContent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/tv_tab_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        style="@style/TextContent.Title"
+        android:text=""
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs_following_followers"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"/>
+
+    <TextView
+        android:id="@+id/tv_tab_following"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        style="@style/TextContent.Title"
+        android:text=""
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tabs_following_followers"
+        app:layout_constraintEnd_toEndOf="@+id/tabs_following_followers" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
