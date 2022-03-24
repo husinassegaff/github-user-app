@@ -33,17 +33,18 @@
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_item_name_followers_following"
+            android:id="@+id/tv_item_username_followers_following"
             android:layout_width="239dp"
             android:layout_height="26dp"
             android:layout_marginStart="16dp"
+            android:text="@string/user_name"
             android:textSize="16sp"
             android:textStyle="bold"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo_followers_following"
             card_view:layout_constraintTop_toTopOf="@+id/img_item_photo_followers_following" />
 
         <TextView
-            android:id="@+id/tv_item_username_followers_following"
+            android:id="@+id/tv_item_id"
             android:layout_width="104dp"
             android:layout_height="19dp"
             android:layout_marginStart="16dp"
@@ -53,21 +54,22 @@
             android:textSize="11sp"
             android:textStyle="normal"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo_followers_following"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name_followers_following"
-            tools:text="@string/user_name" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_username_followers_following"
+            tools:text="@string/id" />
 
         <TextView
-            android:id="@+id/tv_item_location"
+            android:id="@+id/tv_item_type"
             android:layout_width="121dp"
             android:layout_height="18dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
+            android:text="@string/type"
             android:textSize="11sp"
             android:textStyle="normal"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.106"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo_followers_following"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_username_followers_following" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_id" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

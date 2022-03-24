@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Github User</string>
+    <string name="name">Name</string>
     <string name="user_name">Username</string>
+    <string name="id">ID</string>
+    <string name="type">Type</string>
     <string name="location">Location</string>
     <string name="description">Description</string>
     <string name="profile_image">profile_image</string>
