@@ -1,8 +1,7 @@
 package com.example.githubuserapp.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-
+import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 data class SearchResponse(

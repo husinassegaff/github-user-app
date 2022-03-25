@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <ProgressBar
-            android:id="@+id/progBar2"
+            android:id="@+id/progBarFollower"
             style="@style/WrapContent"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_following_followers" />
+            tools:listitem="@layout/item_followers" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,16 +14,16 @@ interface ApiService {
     ): Call<GithubAPIResponse>
 
     @GET("/users/{username}/following")
-    fun getUserFollowing(
+    fun getUserFollowers(
         @Path("login") login : String
     ): Call<FollowerResponse>
 
     @GET("/users/{username/followers")
-    fun getUserFollowers(
+    fun getUserFollowing(
         @Path("login") login: String
     ): Call<FollowingResponse>
 
-    @GET("/search/users?q={husinassegaff}")
+    @GET("/search/users?q={login}")
     fun getSearchUser(
         @Path("login") login: String
     ): Call<SearchResponse>

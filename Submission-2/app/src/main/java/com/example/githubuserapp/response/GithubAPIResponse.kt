@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class GithubAPIResponse(
 
-	@field:SerializedName("bio")
-	val bio: Any,
-
 	@field:SerializedName("login")
 	val login: String,
 
@@ -23,7 +20,7 @@ data class GithubAPIResponse(
 	val name: String,
 
 	@field:SerializedName("company")
-	val company: Any,
+	val company: String,
 
 	@field:SerializedName("location")
 	val location: String,
