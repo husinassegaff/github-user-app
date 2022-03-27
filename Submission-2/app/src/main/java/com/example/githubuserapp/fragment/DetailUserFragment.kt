@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.example.githubuserapp.R
 import com.example.githubuserapp.adapter.SectionsPagerAdapter
-import com.example.githubuserapp.api.User
 import com.example.githubuserapp.databinding.FragmentDetailUserBinding
 import com.example.githubuserapp.response.GithubAPIResponse
+import com.example.githubuserapp.response.ItemsItem
 import com.example.githubuserapp.viewmodel.DetailUserViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -23,13 +24,14 @@ class DetailUserFragment : Fragment() {
 
     private lateinit var usernameUser: String
     private lateinit var binding: FragmentDetailUserBinding
-    private var detailUserViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailUserViewModel::class.java)
+    private val detailUserViewModel by viewModels<DetailUserViewModel>()
 
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
-            R.string.tab_following,
-            R.string.tab_followers
+            R.string.tab_followers,
+            R.string.tab_following
+
         )
     }
 
@@ -54,9 +56,10 @@ class DetailUserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         getSelectedUser()
         showLoadingUserDetail(true)
-        setViewPager()
 
         usernameUser.let { detailUserViewModel.setDetailUser(it)}
+        setViewPager()
+
         detailUserViewModel.getUser().observe (viewLifecycleOwner) { detailUserItems ->
             if (detailUserItems != null) {
                 showUserDetails(detailUserItems)
@@ -70,7 +73,7 @@ class DetailUserFragment : Fragment() {
     }
 
     private fun getSelectedUser() {
-        val detailUser = arguments?.getParcelable<User>(HomeFragment.EXTRA_USER) as User
+        val detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
         usernameUser = detailUser.login
     }
 
@@ -87,18 +90,23 @@ class DetailUserFragment : Fragment() {
         val repository = "Public Repo : ${detailUserItems.publicRepos}"
         binding.dataRepository.text = repository
 
-        if (detailUserItems.location.isEmpty() || detailUserItems.location == "null") {
+        if (detailUserItems.location == null) {
             val location = "No Location"
             binding.dataLocation.text = location
         } else {
             binding.dataLocation.text = detailUserItems.location
         }
-        if (detailUserItems.company.isEmpty() || detailUserItems.company == "null") {
+        if (detailUserItems.company == null ) {
             val company = "No Company"
             binding.dataCompany.text = company
         } else {
             binding.dataCompany.text = detailUserItems.company
         }
+
+        Glide.with(this)
+            .load(detailUserItems.avatarUrl)
+            .circleCrop()
+            .into(binding.dataAvatar)
     }
 
     private fun showLoadingUserDetail(isLoading: Boolean) {
@@ -122,6 +130,7 @@ class DetailUserFragment : Fragment() {
         val tabs: TabLayout = binding.tabsFollowingFollowers
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
+
         }.attach()
 
        activity?.actionBar?.elevation = 0f

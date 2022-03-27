@@ -12,6 +12,8 @@
     <string name="tab_followers">Followers</string>
     <string name="tab_following">Following</string>
 
+    <string name="search_hint">Search username Github</string>
+
     <string name="no_followers">This account has no followers</string>
 
 

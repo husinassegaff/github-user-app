@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuserapp.api.ApiConfig
-import com.example.githubuserapp.response.FollowerResponse
 import com.example.githubuserapp.response.FollowerResponseItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,22 +24,22 @@ class FollowerViewModel : ViewModel() {
     fun setFollower(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUserFollowers(username)
-        client.enqueue(object: Callback<FollowerResponse> {
+        client.enqueue(object: Callback<ArrayList<FollowerResponseItem>> {
             override fun onResponse(
-                call: Call<FollowerResponse>,
-                response: Response<FollowerResponse>
+                call: Call<ArrayList<FollowerResponseItem>>,
+                response: Response<ArrayList<FollowerResponseItem>>
             ) {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
-                    _listFollowers.value = response.body()?.followerResponse
+                    _listFollowers.value = response.body()
                 }
                 else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<FollowerResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<FollowerResponseItem>>, t: Throwable) {
                 _isLoading.value = false
 
                 Log.e(TAG, "onFailure: {${t.message.toString()}")

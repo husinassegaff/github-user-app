@@ -12,7 +12,9 @@
 
         <ProgressBar
             android:id="@+id/progBarFollower"
-            style="@style/WrapContent"
+            style="@android:style/Widget.Holo.Light.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -21,9 +23,7 @@
 
         <TextView
             android:id="@+id/tv_no_followers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.Holo.Light.ProgressBar"
+            style="@style/WrapContent"
             android:layout_marginTop="16dp"
             android:text="@string/no_followers"
             android:gravity="center"

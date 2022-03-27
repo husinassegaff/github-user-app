@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dp"
+                android:layout_marginBottom="10dp"
                 app:layout_collapseMode="parallax">
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -40,10 +41,11 @@
 
                 <TextView
                     android:id="@+id/data_name"
-                    android:layout_width="201dp"
+                    android:layout_width="300dp"
                     android:layout_height="24dp"
                     android:layout_marginTop="20dp"
                     style = "@style/TextContent.Title"
+                    android:textColor="@color/white_primary"
                     app:layout_constraintEnd_toEndOf="@+id/data_avatar"
                     app:layout_constraintStart_toStartOf="@+id/data_avatar"
                     app:layout_constraintTop_toBottomOf="@+id/data_avatar" />
@@ -63,10 +65,11 @@
 
                 <TextView
                     android:id="@+id/data_username"
-                    android:layout_width="103dp"
+                    android:layout_width="200dp"
                     android:layout_height="19dp"
                     android:layout_marginTop="8dp"
                     style="@style/TextContent.Subtitle"
+                    android:textColor="@color/white_primary"
                     app:layout_constraintEnd_toEndOf="@+id/data_name"
                     app:layout_constraintStart_toStartOf="@+id/data_name"
                     app:layout_constraintTop_toBottomOf="@+id/data_name" />
@@ -86,32 +89,34 @@
 
                 <TextView
                     android:id="@+id/data_followers"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="32dp"
+                    android:textColor="@color/white_primary"
                     style="@style/TextContent.Subtitle"
                     app:layout_constraintEnd_toStartOf="@+id/data_following"
                     app:layout_constraintTop_toBottomOf="@+id/data_username" />
 
                 <ProgressBar
                     android:id="@+id/progBar_data_followers"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:indeterminate="true"
                     android:indeterminateBehavior="cycle"
                     android:indeterminateDuration="300"
-                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                    app:layout_constraintStart_toStartOf="@+id/data_followers"
+                    app:layout_constraintBottom_toBottomOf="@+id/data_followers"
                     app:layout_constraintEnd_toEndOf="@+id/data_followers"
-                    app:layout_constraintTop_toTopOf="@+id/data_followers"
-                    app:layout_constraintBottom_toBottomOf="@+id/data_followers" />
+                    app:layout_constraintStart_toStartOf="@+id/data_followers"
+                    app:layout_constraintTop_toTopOf="@+id/data_followers" />
 
                 <TextView
                     android:id="@+id/data_following"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/white_primary"
                     style="@style/TextContent.Subtitle"
                     app:layout_constraintEnd_toEndOf="@+id/data_username"
                     app:layout_constraintStart_toStartOf="@+id/data_username"
@@ -132,10 +137,11 @@
 
                 <TextView
                     android:id="@+id/data_repository"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/white_primary"
                     style="@style/TextContent.Subtitle"
                     app:layout_constraintStart_toEndOf="@+id/data_following"
                     app:layout_constraintTop_toBottomOf="@+id/data_username" />
@@ -156,9 +162,10 @@
                 <TextView
                     android:id="@+id/data_company"
                     style="@style/TextContent.Subtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="21dp"
                     android:layout_marginTop="8dp"
+                    android:textColor="@color/white_primary"
                     app:layout_constraintEnd_toEndOf="@+id/data_repository"
                     app:layout_constraintStart_toStartOf="@+id/data_followers"
                     app:layout_constraintTop_toBottomOf="@+id/data_following" />
@@ -179,9 +186,10 @@
                 <TextView
                     android:id="@+id/data_location"
                     style="@style/TextContent.Subtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
                     android:layout_height="20dp"
                     android:layout_marginTop="12dp"
+                    android:textColor="@color/white_primary"
                     app:layout_constraintEnd_toEndOf="@+id/data_company"
                     app:layout_constraintHorizontal_bias="0.552"
                     app:layout_constraintStart_toStartOf="@+id/data_company"
@@ -240,13 +248,11 @@
             app:tabTextColor="@color/black_primary" >
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_item_following"
                 style="@style/WrapContent"
                 android:layout_gravity="center"
                 android:text="@string/tab_following" />
 
             <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_item_followers"
                 style="@style/WrapContent"
                 android:layout_gravity="center"
                 android:text="@string/tab_followers" />

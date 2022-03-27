@@ -1,11 +1,13 @@
 package com.example.githubuserapp.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.adapter.FollowerAdapter
@@ -22,7 +24,7 @@ class FollowersFragment : Fragment() {
     private lateinit var usernameUser : String
 
     private var listFollowers = ArrayList<FollowerResponseItem>()
-    private var followerViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowerViewModel::class.java)
+    private val followerViewModel by viewModels<FollowerViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,6 +45,8 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rvFollower = binding.rvFollowers
+
         showLoadingFollowers(true)
         getUsernameUser()
         showRecyclerView()
@@ -50,7 +54,7 @@ class FollowersFragment : Fragment() {
         usernameUser.let {followerViewModel.setFollower(it)}
 
         followerViewModel.getFollower().observe(viewLifecycleOwner) { listFollowerItems ->
-            if (listFollowerItems != null) {
+            if (listFollowerItems.size > 0) {
                 showFollowerItems(listFollowerItems)
                 showLoadingFollowers(false)
             }
@@ -67,9 +71,14 @@ class FollowersFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showRecyclerView() {
         rvFollower.layoutManager = LinearLayoutManager(activity)
         listFollowerAdapter = FollowerAdapter(listFollowers)
+
+        rvFollower.adapter = listFollowerAdapter
+        rvFollower.itemAnimator = DefaultItemAnimator()
+        listFollowerAdapter.notifyDataSetChanged()
         rvFollower.setHasFixedSize(true)
     }
 

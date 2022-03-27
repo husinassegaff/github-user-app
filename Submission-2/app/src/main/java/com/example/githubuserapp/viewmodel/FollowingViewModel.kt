@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuserapp.api.ApiConfig
-import com.example.githubuserapp.response.FollowingResponse
 import com.example.githubuserapp.response.FollowingResponseItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,23 +24,23 @@ class FollowingViewModel : ViewModel() {
     fun setFollowing(username: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUserFollowing(username)
-        client.enqueue(object : Callback<FollowingResponse> {
+        client.enqueue(object : Callback<ArrayList<FollowingResponseItem>> {
             override fun onResponse(
-                call: Call<FollowingResponse>,
-                response: Response<FollowingResponse>
+                call: Call<ArrayList<FollowingResponseItem>>,
+                response: Response<ArrayList<FollowingResponseItem>>
             ) {
                 _isLoading.value = false
 
                 if (response.isSuccessful) {
-                    _listFollowing.value = response.body()?.followingResponse
+                    _listFollowing.value = response.body()
                 }
 
                 else {
-                    Log.e(TAG, "onFailure: ${response.message()}")
+                    Log.e(TAG, "onFailure: ${response.message()} and ${response.body()}")
                 }
             }
 
-            override fun onFailure(call: Call<FollowingResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<FollowingResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

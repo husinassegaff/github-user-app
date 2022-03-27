@@ -1,30 +1,31 @@
 package com.example.githubuserapp.api
 
-import com.example.githubuserapp.response.FollowerResponse
-import com.example.githubuserapp.response.FollowingResponse
-import com.example.githubuserapp.response.GithubAPIResponse
-import com.example.githubuserapp.response.SearchResponse
+import com.example.githubuserapp.response.*
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("/users/{username}")
+    @GET("/users/{login}")
+    @Headers("Authorization: token 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")
     fun getUser(
         @Path("login") login : String
     ): Call<GithubAPIResponse>
 
-    @GET("/users/{username}/following")
+    @GET("/users/{login}/following")
+    @Headers("Authorization: token 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")
     fun getUserFollowers(
         @Path("login") login : String
-    ): Call<FollowerResponse>
+    ): Call<ArrayList<FollowerResponseItem>>
 
-    @GET("/users/{username/followers")
+    @GET("/users/{login}/followers")
+    @Headers("Authorization: token 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")
     fun getUserFollowing(
         @Path("login") login: String
-    ): Call<FollowingResponse>
+    ): Call<ArrayList<FollowingResponseItem>>
 
-    @GET("/search/users?q={login}")
+    @GET("/search/users")
+    @Headers("Authorization: token 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")
     fun getSearchUser(
-        @Path("login") login: String
+        @Query("q") query: String
     ): Call<SearchResponse>
 }

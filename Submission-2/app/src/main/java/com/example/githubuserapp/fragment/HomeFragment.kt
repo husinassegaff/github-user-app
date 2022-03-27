@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,10 +25,10 @@ class HomeFragment : Fragment() {
 
     private lateinit var listUserAdapter: ListUserAdapter
     private lateinit var rvUser: RecyclerView
-    private lateinit var searchUser: SearchView
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var listUser: ArrayList<ItemsItem>
-    private var homeViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
+    private val homeViewModel by viewModels<HomeViewModel>()
+
+    private lateinit var searchUser : SearchView
 
 
     override fun onCreateView(
@@ -51,7 +51,23 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        context?.let { searchUsername() }
+        rvUser = binding.rvUser
+        searchUser = binding.searchUser
+        searchUser.queryHint = resources.getString(R.string.search_hint)
+
+        searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.isNotEmpty()!!) {
+                    newText.let { homeViewModel.setUsername(it)}
+                    showLoading(true)
+                } else {
+                    showLoading(false)
+                }
+                return true
+            }
+        })
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             showRecyclerView(it)
@@ -85,28 +101,9 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun searchUsername() {
-        searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText.isNotEmpty()) {
-                    newText.let { homeViewModel.setUsername(it)}
-                    showLoading(true)
-                } else {
-                    showLoading(false)
-                    listUser.clear()
-                }
-                return true
-            }
-        })
-    }
-
     private fun setSelectedUser(data: ItemsItem) {
         val mBundle = Bundle()
-        mBundle.putParcelable(EXTRA_USER, data)
+        mBundle.putParcelable(EXTRA_USER,data)
         NavHostFragment
             .findNavController(this)
             .navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)

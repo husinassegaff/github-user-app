@@ -26,6 +26,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layoutDirection="rtl"
+        android:background="@drawable/searchview_background"
         android:queryHint="Search Username Github"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,11 +1,13 @@
 package com.example.githubuserapp.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.adapter.FollowingAdapter
@@ -20,8 +22,9 @@ class FollowingFragment : Fragment() {
     private lateinit var binding: FragmentFollowingBinding
     private lateinit var rvFollowing : RecyclerView
     private lateinit var usernameUser :String
+
     private var listFollowing = ArrayList<FollowingResponseItem>()
-    private var followingViewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(FollowingViewModel::class.java)
+    private val followingViewModel by viewModels<FollowingViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +45,8 @@ class FollowingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        rvFollowing = binding.rvFollowings
+
         showLoadingFollowing(true)
         getUsernameUser()
         showRecyclerView()
@@ -49,7 +54,7 @@ class FollowingFragment : Fragment() {
         usernameUser.let { followingViewModel.setFollowing(it) }
 
         followingViewModel.getFollowing().observe(viewLifecycleOwner) {  listFollowingItems ->
-            if (listFollowingItems != null) {
+            if (listFollowingItems.size > 0) {
                 showFollowingItems(listFollowingItems)
                 showLoadingFollowing(false)
             }
@@ -66,9 +71,15 @@ class FollowingFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showRecyclerView() {
         rvFollowing.layoutManager = LinearLayoutManager(activity)
         listFollowingAdapter = FollowingAdapter(listFollowing)
+
+        rvFollowing.adapter = listFollowingAdapter
+        rvFollowing.itemAnimator = DefaultItemAnimator()
+        listFollowingAdapter.notifyDataSetChanged()
+
         rvFollowing.setHasFixedSize(true)
     }
 
@@ -77,6 +88,7 @@ class FollowingFragment : Fragment() {
 
         when (listFollowingItems.size) {
             0 -> binding.tvNoFollowings.visibility = View.VISIBLE
+
             else -> binding.tvNoFollowings.visibility = View.GONE
         }
     }

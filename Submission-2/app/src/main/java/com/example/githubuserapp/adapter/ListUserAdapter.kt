@@ -15,13 +15,6 @@ class ListUserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView
         this.onItemClickCallback = onItemClickCallback
     }
 
-//    @SuppressLint("NotifyDataSetChanged")
-//    fun setUserData(items: List<ItemsItem>) {
-//        listUser.clear()
-//        listUser.addAll(items)
-//        notifyDataSetChanged()
-//    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         val binding = ItemRowUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecyclerViewHolder(binding)
