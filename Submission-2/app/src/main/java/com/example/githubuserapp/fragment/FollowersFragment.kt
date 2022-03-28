@@ -46,16 +46,18 @@ class FollowersFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvFollower = binding.rvFollowers
+        rvFollower.setHasFixedSize(true)
 
         showLoadingFollowers(true)
         getUsernameUser()
-        showRecyclerView()
+        showRecyclerView(listFollowers)
 
         usernameUser.let {followerViewModel.setFollower(it)}
 
         followerViewModel.getFollower().observe(viewLifecycleOwner) { listFollowerItems ->
             if (listFollowerItems.size > 0) {
                 showFollowerItems(listFollowerItems)
+                showRecyclerView(listFollowerItems)
                 showLoadingFollowers(false)
             }
         }
@@ -72,14 +74,13 @@ class FollowersFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showRecyclerView() {
+    private fun showRecyclerView(dataFollowers: ArrayList<FollowerResponseItem>) {
         rvFollower.layoutManager = LinearLayoutManager(activity)
-        listFollowerAdapter = FollowerAdapter(listFollowers)
+        listFollowerAdapter = FollowerAdapter(dataFollowers)
 
         rvFollower.adapter = listFollowerAdapter
         rvFollower.itemAnimator = DefaultItemAnimator()
         listFollowerAdapter.notifyDataSetChanged()
-        rvFollower.setHasFixedSize(true)
     }
 
     private fun showFollowerItems(listFollowerItems: ArrayList<FollowerResponseItem>) {

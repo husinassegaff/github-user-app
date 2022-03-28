@@ -46,16 +46,18 @@ class FollowingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvFollowing = binding.rvFollowings
+        rvFollowing.setHasFixedSize(true)
 
         showLoadingFollowing(true)
         getUsernameUser()
-        showRecyclerView()
+        showRecyclerView(listFollowing)
 
         usernameUser.let { followingViewModel.setFollowing(it) }
 
         followingViewModel.getFollowing().observe(viewLifecycleOwner) {  listFollowingItems ->
             if (listFollowingItems.size > 0) {
                 showFollowingItems(listFollowingItems)
+                showRecyclerView(listFollowingItems)
                 showLoadingFollowing(false)
             }
         }
@@ -72,15 +74,13 @@ class FollowingFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showRecyclerView() {
+    private fun showRecyclerView(dataFollowing : ArrayList<FollowingResponseItem>) {
         rvFollowing.layoutManager = LinearLayoutManager(activity)
-        listFollowingAdapter = FollowingAdapter(listFollowing)
+        listFollowingAdapter = FollowingAdapter(dataFollowing)
 
         rvFollowing.adapter = listFollowingAdapter
         rvFollowing.itemAnimator = DefaultItemAnimator()
         listFollowingAdapter.notifyDataSetChanged()
-
-        rvFollowing.setHasFixedSize(true)
     }
 
     private fun showFollowingItems(listFollowingItems: ArrayList<FollowingResponseItem>) {
