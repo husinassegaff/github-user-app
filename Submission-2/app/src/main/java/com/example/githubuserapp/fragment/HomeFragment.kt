@@ -26,6 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var listUserAdapter: ListUserAdapter
     private lateinit var rvUser: RecyclerView
     private lateinit var binding: FragmentHomeBinding
+    private val listUser =  ArrayList<ItemsItem>()
     private val homeViewModel by viewModels<HomeViewModel>()
 
     private lateinit var searchUser : SearchView
@@ -52,8 +53,11 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvUser = binding.rvUser
+        rvUser.setHasFixedSize(true)
         searchUser = binding.searchUser
         searchUser.queryHint = resources.getString(R.string.search_hint)
+
+        showRecyclerView(listUser)
 
         searchUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = false
@@ -91,7 +95,6 @@ class HomeFragment : Fragment() {
         rvUser.adapter = listUserAdapter
         rvUser.itemAnimator = DefaultItemAnimator()
         listUserAdapter.notifyDataSetChanged()
-        rvUser.setHasFixedSize(true)
 
         listUserAdapter.setOnItemClickCallback(object: ListUserAdapter.OnItemClickCallback {
 
