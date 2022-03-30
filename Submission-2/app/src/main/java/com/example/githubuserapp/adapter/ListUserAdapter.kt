@@ -22,13 +22,15 @@ class ListUserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val (login, type, avatarUrl, id) = listUser[position]
-        holder.binding.tvItemUsernameUser.text = login
-        holder.binding.tvItemTypeUser.text = type
-        holder.binding.tvItemIdUser.text = id.toString()
-        Glide.with(holder.itemView.context)
-            .load(avatarUrl)
-            .circleCrop()
-            .into(holder.binding.imgItemPhoto)
+        with(holder.binding) {
+            tvItemUsernameUser.text = login
+            tvItemTypeUser.text = type
+            tvItemIdUser.text = id.toString()
+            Glide.with(this.cardView.context)
+                .load(avatarUrl)
+                .circleCrop()
+                .into(imgItemPhoto)
+        }
 
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(listUser[holder.adapterPosition])

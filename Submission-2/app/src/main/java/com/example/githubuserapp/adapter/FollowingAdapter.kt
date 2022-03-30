@@ -24,14 +24,15 @@ class FollowingAdapter(private val listFollowing: ArrayList<FollowingResponseIte
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val (login, type, avatarUrl, id) = listFollowing[position]
-        holder.binding.tvItemUsernameFollowing.text = login
-        holder.binding.tvItemTypeFollowing.text = type
-        holder.binding.tvItemIdFollowing.text = id.toString()
-        Glide.with(holder.itemView.context)
-            .load(avatarUrl)
-            .circleCrop()
-            .into(holder.binding.imgItemPhotoFollowing)
-
+        with(holder.binding) {
+            tvItemUsernameFollowing.text = login
+            tvItemTypeFollowing.text = type
+            tvItemIdFollowing.text = id.toString()
+            Glide.with(this.cardView.context)
+                .load(avatarUrl)
+                .circleCrop()
+                .into(imgItemPhotoFollowing)
+        }
     }
 
     override fun getItemCount(): Int = listFollowing.size

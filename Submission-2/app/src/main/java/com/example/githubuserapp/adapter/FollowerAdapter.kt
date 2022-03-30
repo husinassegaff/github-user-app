@@ -24,13 +24,17 @@ class FollowerAdapter(private val listFollower: ArrayList<FollowerResponseItem>)
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val (login, type, avatarUrl, id) = listFollower[position]
-        holder.binding.tvItemUsernameFollower.text = login
-        holder.binding.tvItemTypeFollower.text = type
-        holder.binding.tvItemIdFollower.text = id.toString()
-        Glide.with(holder.itemView.context)
-            .load(avatarUrl)
-            .circleCrop()
-            .into(holder.binding.imgItemPhotoFollower)
+
+        with(holder.binding) {
+            tvItemUsernameFollower.text = login
+            tvItemTypeFollower.text = type
+            tvItemIdFollower.text = id.toString()
+            Glide.with(this.cardView.context)
+                .load(avatarUrl)
+                .circleCrop()
+                .into(imgItemPhotoFollower)
+        }
+
     }
 
     override fun getItemCount(): Int = listFollower.size

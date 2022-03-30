@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean = false
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.isNotEmpty()!!) {
+                if (!newText.isNullOrEmpty()) {
                     newText.let { homeViewModel.setUsername(it)}
                     showLoading(true)
                 } else {
