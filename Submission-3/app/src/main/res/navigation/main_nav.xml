@@ -9,7 +9,11 @@
         android:id="@+id/detailUserFragment"
         android:name="com.example.githubuserapp.fragment.DetailUserFragment"
         android:label="DetailUserFragment"
-        tools:layout="@layout/fragment_detail_user"/>
+        tools:layout="@layout/fragment_detail_user">
+        <action
+            android:id="@+id/action_detailUserFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.githubuserapp.fragment.HomeFragment"
@@ -18,5 +22,13 @@
         <action
             android:id="@+id/action_homeFragment_to_detailUserFragment"
             app:destination="@id/detailUserFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.example.githubuserapp.fragment.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

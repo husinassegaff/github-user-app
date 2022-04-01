@@ -87,6 +87,7 @@ class HomeFragment : Fragment() {
 
     }
 
+
     @SuppressLint("NotifyDataSetChanged")
     private fun showRecyclerView(listUser: ArrayList<ItemsItem>) {
         rvUser.layoutManager = LinearLayoutManager(activity)
