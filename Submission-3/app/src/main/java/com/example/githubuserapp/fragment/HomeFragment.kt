@@ -73,6 +73,8 @@ class HomeFragment : Fragment() {
             }
         })
 
+
+
         homeViewModel.user.observe(viewLifecycleOwner) {
             showRecyclerView(it)
         }

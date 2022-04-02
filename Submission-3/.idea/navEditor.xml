@@ -13,18 +13,21 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-770" />
-                            <option name="y" value="90" />
+                            <option name="x" value="-1046" />
+                            <option name="y" value="-494" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_detailUserFragment_to_settingFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="favoriteFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-1020" />
+                            <option name="y" value="-1396" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -34,13 +37,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1160" />
-                            <option name="y" value="-363" />
+                            <option name="x" value="-1624" />
+                            <option name="y" value="-827" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_homeFragment_to_detailUserFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_favoriteFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -60,8 +68,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-745" />
-                            <option name="y" value="-469" />
+                            <option name="x" value="-1025" />
+                            <option name="y" value="-953" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -245,7 +245,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tabTextColor="@color/black_primary" >
+            app:tabTextColor="?android:textColorPrimary" >
 
             <com.google.android.material.tabs.TabItem
                 style="@style/WrapContent"
@@ -301,5 +301,20 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="182dp"
+        android:layout_margin="16dp"
+        android:foregroundGravity="bottom"
+        app:fabSize="normal"
+        app:layout_anchor="@id/view_pager_following_followers"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_favorite_white_24"
+        app:backgroundTint="@color/black_primary"
+        tools:layout_editor_absoluteX="73dp"
+        tools:layout_editor_absoluteY="129dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

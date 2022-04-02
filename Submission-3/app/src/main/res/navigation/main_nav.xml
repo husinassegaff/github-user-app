@@ -9,11 +9,7 @@
         android:id="@+id/detailUserFragment"
         android:name="com.example.githubuserapp.fragment.DetailUserFragment"
         android:label="DetailUserFragment"
-        tools:layout="@layout/fragment_detail_user">
-        <action
-            android:id="@+id/action_detailUserFragment_to_settingFragment"
-            app:destination="@id/settingFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_detail_user"/>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.githubuserapp.fragment.HomeFragment"
@@ -25,10 +21,18 @@
         <action
             android:id="@+id/action_homeFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.githubuserapp.fragment.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.githubuserapp.fragment.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
