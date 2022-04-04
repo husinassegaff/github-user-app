@@ -11,5 +11,9 @@
             android:title="@string/menu_dark"
             android:icon="@drawable/ic_settings_white"
             app:showAsAction="always"/>
+        <item android:id="@+id/menu_delete"
+            android:title="@string/menu_delete"
+            android:icon="@drawable/ic_clear"
+            app:showAsAction="always" />
     </group>
 </menu>

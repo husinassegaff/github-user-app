@@ -18,7 +18,9 @@
     <string name="no_favorite">No user favorite</string>
     <string name="menu_favorite">Menu Favorite</string>
     <string name="menu_dark">Menu Dark</string>
+    <string name="menu_delete">Menu Delete</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="added">Akun ini telah ditambahkan ke Favorit</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

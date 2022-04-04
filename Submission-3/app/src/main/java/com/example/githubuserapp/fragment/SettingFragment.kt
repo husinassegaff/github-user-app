@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
@@ -12,6 +13,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
+import com.example.githubuserapp.R
 import com.example.githubuserapp.databinding.FragmentSettingBinding
 import com.example.githubuserapp.datastore.SettingPreferences
 import com.example.githubuserapp.viewmodel.SettingViewModel
@@ -24,6 +26,18 @@ class SettingFragment : Fragment() {
 
     private lateinit var binding : FragmentSettingBinding
     private lateinit var switchTheme : SwitchMaterial
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.menu_favorite).isVisible = false
+        menu.findItem(R.id.menu_dark).isVisible = false
+        menu.findItem(R.id.menu_delete).isVisible = false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

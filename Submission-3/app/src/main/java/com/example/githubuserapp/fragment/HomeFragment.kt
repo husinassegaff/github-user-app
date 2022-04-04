@@ -31,6 +31,16 @@ class HomeFragment : Fragment() {
 
     private lateinit var searchUser : SearchView
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        menu.findItem(R.id.menu_delete).isVisible = false
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

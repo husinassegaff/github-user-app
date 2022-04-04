@@ -2,6 +2,7 @@ package com.example.githubuserapp.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -10,10 +11,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.example.githubuserapp.R
 import com.example.githubuserapp.adapter.SectionsPagerAdapter
+import com.example.githubuserapp.database.Favorite
 import com.example.githubuserapp.databinding.FragmentDetailUserBinding
 import com.example.githubuserapp.response.GithubAPIResponse
 import com.example.githubuserapp.response.ItemsItem
 import com.example.githubuserapp.viewmodel.DetailUserViewModel
+import com.example.githubuserapp.viewmodel.FavoriteAddUpdateViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -22,7 +25,10 @@ class DetailUserFragment : Fragment() {
 
     private lateinit var usernameUser: String
     private lateinit var binding: FragmentDetailUserBinding
+    private lateinit var favoriteAddUpdateViewModel: FavoriteAddUpdateViewModel
     private val detailUserViewModel by viewModels<DetailUserViewModel>()
+    private var favorite: Favorite? = null
+
 
     companion object {
         @StringRes
@@ -42,6 +48,7 @@ class DetailUserFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.menu_favorite).isVisible = false
         menu.findItem(R.id.menu_dark).isVisible = false
+        menu.findItem(R.id.menu_delete).isVisible = false
     }
 
 
@@ -79,6 +86,23 @@ class DetailUserFragment : Fragment() {
         detailUserViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoadingUserDetail(it)
         }
+
+        binding.fabFavorite.setOnClickListener {
+            val detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
+            favorite.let {
+                it?.username = usernameUser
+                it?.id_user = detailUser.id
+                it?.user_type = detailUser.type
+                it?.avatar_url = detailUser.avatarUrl
+
+                favoriteAddUpdateViewModel.insert(favorite as Favorite)
+                showToast(getString(R.string.added))
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun getSelectedUser() {
