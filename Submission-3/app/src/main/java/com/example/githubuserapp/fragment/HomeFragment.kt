@@ -36,6 +36,25 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.option_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_favorite -> {
+                NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_favoriteFragment)
+                true
+            }
+            R.id.menu_dark -> {
+                NavHostFragment.findNavController(this).navigate(R.id.action_homeFragment_to_settingFragment)
+                true
+            }
+            else -> true
+        }
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.menu_delete).isVisible = false

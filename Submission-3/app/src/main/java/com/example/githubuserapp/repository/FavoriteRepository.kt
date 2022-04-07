@@ -24,11 +24,15 @@ class FavoriteRepository(application: Application) {
         executorService.execute { mFavoritesDao.insert(favorite) }
     }
 
-    fun delete(favorite: Favorite) {
-        executorService.execute { mFavoritesDao.delete(favorite) }
+    fun delete(username: String) {
+        executorService.execute { mFavoritesDao.delete(username) }
     }
 
     fun update(favorite: Favorite) {
         executorService.execute { mFavoritesDao.update(favorite) }
+    }
+
+    fun exist(username: String) : Boolean {
+        return mFavoritesDao.exist(username)
     }
 }

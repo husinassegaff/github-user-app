@@ -14,5 +14,5 @@ class FavoriteViewModel(application: Application) : ViewModel() {
 
     private val mFavoriteRepository: FavoriteRepository = FavoriteRepository(application)
 
-    fun getAllNotes(): LiveData<List<Favorite>> = mFavoriteRepository.getAllFavorites()
+    fun getAllFavorites(): LiveData<List<Favorite>> = mFavoriteRepository.getAllFavorites()
 }

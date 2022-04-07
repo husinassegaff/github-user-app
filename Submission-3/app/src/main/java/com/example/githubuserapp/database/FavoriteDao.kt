@@ -11,9 +11,12 @@ interface FavoriteDao {
     @Update
     fun update(favorite: Favorite)
 
-    @Delete
-    fun delete(favorite: Favorite)
+    @Query("DELETE FROM favorite WHERE username = :username")
+    fun delete(username: String)
 
     @Query("SELECT * from favorite ORDER BY id ASC")
     fun getAllFavorites(): LiveData<List<Favorite>>
+
+    @Query("SELECT id_user FROM favorite WHERE id_user = :username")
+    fun exist(username: String) : Boolean
 }

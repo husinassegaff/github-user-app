@@ -17,7 +17,11 @@ class FavoriteAddUpdateViewModel(application: Application) : ViewModel() {
         mFavoriteRepository.update(favorite)
     }
 
-    fun delete(favorite: Favorite) {
-        mFavoriteRepository.delete(favorite)
+    fun delete(username: String) {
+        mFavoriteRepository.delete(username)
+    }
+
+    fun exist(username: String) : Boolean {
+        return mFavoriteRepository.exist(username)
     }
 }

@@ -8,10 +8,16 @@ import com.bumptech.glide.Glide
 import com.example.githubuserapp.database.Favorite
 import com.example.githubuserapp.databinding.ItemRowUserBinding
 import com.example.githubuserapp.helper.FavoriteDiffCallback
+import com.example.githubuserapp.response.ItemsItem
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     private val listFavorites = ArrayList<Favorite>()
+    private lateinit var onItemClickCallback: OnItemClickCallback
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     fun setListFavorites(listFavorites: List<Favorite>) {
         val diffCallback = FavoriteDiffCallback(this.listFavorites, listFavorites)
@@ -47,5 +53,9 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     override fun getItemCount(): Int {
         return listFavorites.size
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClicked(data: ItemsItem)
     }
 }

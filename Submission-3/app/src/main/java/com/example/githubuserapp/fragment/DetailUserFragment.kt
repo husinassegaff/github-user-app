@@ -1,5 +1,6 @@
 package com.example.githubuserapp.fragment
 
+import android.app.Application
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -21,14 +22,22 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 
-class DetailUserFragment : Fragment() {
+class DetailUserFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var usernameUser: String
-    private lateinit var binding: FragmentDetailUserBinding
-    private lateinit var favoriteAddUpdateViewModel: FavoriteAddUpdateViewModel
-    private val detailUserViewModel by viewModels<DetailUserViewModel>()
+
+    private var _binding: FragmentDetailUserBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var favoriteAddUpdateViewModel : FavoriteAddUpdateViewModel
     private var favorite: Favorite? = null
 
+    private val detailUserViewModel by viewModels<DetailUserViewModel>()
+
+    private lateinit var usernameUser: String
+    private lateinit var detailUser: ItemsItem
+    private var checkExist: Boolean? = null
+
+    private var optionMenu : Menu? = null
 
     companion object {
         @StringRes
@@ -44,11 +53,20 @@ class DetailUserFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        optionMenu = menu
+        inflater.inflate(R.menu.option_menu, menu)
+    }
+
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)
         menu.findItem(R.id.menu_favorite).isVisible = false
         menu.findItem(R.id.menu_dark).isVisible = false
-        menu.findItem(R.id.menu_delete).isVisible = false
+    }
+
+    private fun optionMenuDelete(menu: Menu, checkExist: Boolean) {
+        menu.findItem(R.id.menu_delete).isVisible = checkExist
     }
 
 
@@ -57,21 +75,25 @@ class DetailUserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailUserBinding.inflate(
+        _binding = FragmentDetailUserBinding.inflate(
             inflater,
             container,
             false
-        ).apply {
-            viewLifecycleOwner
-            DetailUserViewModel
-        }
+        )
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getSelectedUser()
+        detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
+        usernameUser = detailUser.login
+
         showLoadingUserDetail(true)
+
+        favoriteAddUpdateViewModel = FavoriteAddUpdateViewModel(activity?.applicationContext as Application)
+        favorite = Favorite()
+
 
         usernameUser.let { detailUserViewModel.setDetailUser(it)}
         setViewPager()
@@ -87,17 +109,40 @@ class DetailUserFragment : Fragment() {
             showLoadingUserDetail(it)
         }
 
-        binding.fabFavorite.setOnClickListener {
-            val detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
-            favorite.let {
-                it?.username = usernameUser
-                it?.id_user = detailUser.id
-                it?.user_type = detailUser.type
-                it?.avatar_url = detailUser.avatarUrl
+        checkExist = isExist(detailUser.login)
 
-                favoriteAddUpdateViewModel.insert(favorite as Favorite)
-                showToast(getString(R.string.added))
+        if (checkExist == true) {
+            optionMenuDelete(optionMenu!!, checkExist!!)
+        }
+
+
+        binding.fabFavorite.setOnClickListener(this)
+    }
+
+    private fun isExist(username: String) : Boolean {
+        return favoriteAddUpdateViewModel.exist(username)
+    }
+
+    override fun onClick(p0: View?) {
+        when (p0?.id) {
+            R.id.fab_favorite -> {
+                if (checkExist == false) {
+                    favorite?.username = detailUser.login
+                    favorite?.avatar_url = detailUser.avatarUrl
+                    favorite?.id_user = detailUser.id
+                    favorite?.user_type = detailUser.type
+                    favoriteAddUpdateViewModel.insert(favorite as Favorite)
+
+                    showToast(getString(R.string.added))
+                    checkExist = true
+                }
             }
+            optionMenu?.findItem(R.id.menu_delete)?.itemId -> {
+                favoriteAddUpdateViewModel.delete(detailUser.login)
+                showToast(getString(R.string.deleted))
+                checkExist = false
+            }
+
         }
     }
 
@@ -105,33 +150,21 @@ class DetailUserFragment : Fragment() {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun getSelectedUser() {
-        val detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
-        usernameUser = detailUser.login
-    }
-
     private fun showUserDetails(detailUserItems: GithubAPIResponse) {
         binding.dataName.text = detailUserItems.name
         binding.dataUsername.text = detailUserItems.login
 
-        val followers = "Followers : ${detailUserItems.followers}"
-        binding.dataFollowers.text = followers
-
-        val following = "Following : ${detailUserItems.following}"
-        binding.dataFollowing.text = following
-
-        val repository = "Public Repo : ${detailUserItems.publicRepos}"
-        binding.dataRepository.text = repository
+        binding.dataFollowers.text = resources.getString(R.string.followers, detailUserItems.followers)
+        binding.dataFollowing.text = resources.getString(R.string.following, detailUserItems.following)
+        binding.dataRepository.text = resources.getString(R.string.repositories, detailUserItems.publicRepos)
 
         if (detailUserItems.location == null) {
-            val location = "No Location"
-            binding.dataLocation.text = location
+            binding.dataLocation.text = resources.getString(R.string.no_location)
         } else {
             binding.dataLocation.text = detailUserItems.location
         }
         if (detailUserItems.company == null ) {
-            val company = "No Company"
-            binding.dataCompany.text = company
+            binding.dataCompany.text = resources.getString(R.string.no_company)
         } else {
             binding.dataCompany.text = detailUserItems.company
         }
