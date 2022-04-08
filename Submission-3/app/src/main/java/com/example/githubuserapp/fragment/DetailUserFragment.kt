@@ -15,7 +15,6 @@ import com.example.githubuserapp.adapter.SectionsPagerAdapter
 import com.example.githubuserapp.database.Favorite
 import com.example.githubuserapp.databinding.FragmentDetailUserBinding
 import com.example.githubuserapp.response.GithubAPIResponse
-import com.example.githubuserapp.response.ItemsItem
 import com.example.githubuserapp.viewmodel.DetailUserViewModel
 import com.example.githubuserapp.viewmodel.FavoriteAddUpdateViewModel
 import com.google.android.material.tabs.TabLayout
@@ -23,7 +22,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class DetailUserFragment : Fragment(), View.OnClickListener {
-
 
     private var _binding: FragmentDetailUserBinding? = null
     private val binding get() = _binding!!
@@ -34,10 +32,8 @@ class DetailUserFragment : Fragment(), View.OnClickListener {
     private val detailUserViewModel by viewModels<DetailUserViewModel>()
 
     private lateinit var usernameUser: String
-    private lateinit var detailUser: ItemsItem
+    private lateinit var detailUser: GithubAPIResponse
     private var checkExist: Boolean? = null
-
-    private var optionMenu : Menu? = null
 
     companion object {
         @StringRes
@@ -47,28 +43,6 @@ class DetailUserFragment : Fragment(), View.OnClickListener {
 
         )
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        optionMenu = menu
-        inflater.inflate(R.menu.option_menu, menu)
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.menu_favorite).isVisible = false
-        menu.findItem(R.id.menu_dark).isVisible = false
-    }
-
-    private fun optionMenuDelete(menu: Menu, checkExist: Boolean) {
-        menu.findItem(R.id.menu_delete).isVisible = checkExist
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,21 +60,29 @@ class DetailUserFragment : Fragment(), View.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detailUser = arguments?.getParcelable<ItemsItem>(HomeFragment.EXTRA_USER) as ItemsItem
-        usernameUser = detailUser.login
 
         showLoadingUserDetail(true)
 
         favoriteAddUpdateViewModel = FavoriteAddUpdateViewModel(activity?.applicationContext as Application)
         favorite = Favorite()
 
-
+        usernameUser = DetailUserFragmentArgs.fromBundle(arguments as Bundle).username
         usernameUser.let { detailUserViewModel.setDetailUser(it)}
         setViewPager()
 
+        checkExist = isExist(usernameUser)
+
+        if(checkExist == true) {
+            binding.fabFavorite.setImageResource(R.drawable.ic_clear)
+        } else {
+            binding.fabFavorite.setImageResource(R.drawable.ic_favorite_white_24)
+        }
+
         detailUserViewModel.getUser().observe (viewLifecycleOwner) { detailUserItems ->
             if (detailUserItems != null) {
+                detailUser = detailUserItems
                 showUserDetails(detailUserItems)
+
                 showLoadingUserDetail(false)
             }
         }
@@ -108,13 +90,6 @@ class DetailUserFragment : Fragment(), View.OnClickListener {
         detailUserViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoadingUserDetail(it)
         }
-
-        checkExist = isExist(detailUser.login)
-
-        if (checkExist == true) {
-            optionMenuDelete(optionMenu!!, checkExist!!)
-        }
-
 
         binding.fabFavorite.setOnClickListener(this)
     }
@@ -126,23 +101,23 @@ class DetailUserFragment : Fragment(), View.OnClickListener {
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.fab_favorite -> {
+                checkExist = isExist(usernameUser)
+
                 if (checkExist == false) {
                     favorite?.username = detailUser.login
                     favorite?.avatar_url = detailUser.avatarUrl
-                    favorite?.id_user = detailUser.id
-                    favorite?.user_type = detailUser.type
+                    favorite?.followers = resources.getString(R.string.followers, detailUser.followers)
+                    favorite?.repository = resources.getString(R.string.repositories, detailUser.publicRepos)
                     favoriteAddUpdateViewModel.insert(favorite as Favorite)
 
+                    binding.fabFavorite.setImageResource(R.drawable.ic_clear)
                     showToast(getString(R.string.added))
-                    checkExist = true
+                } else{
+                    favoriteAddUpdateViewModel.delete(usernameUser)
+                    binding.fabFavorite.setImageResource(R.drawable.ic_favorite_white_24)
+                    showToast(getString(R.string.deleted))
                 }
             }
-            optionMenu?.findItem(R.id.menu_delete)?.itemId -> {
-                favoriteAddUpdateViewModel.delete(detailUser.login)
-                showToast(getString(R.string.deleted))
-                checkExist = false
-            }
-
         }
     }
 

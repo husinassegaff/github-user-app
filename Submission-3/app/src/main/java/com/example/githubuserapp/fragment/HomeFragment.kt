@@ -1,11 +1,17 @@
 package com.example.githubuserapp.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,19 +19,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.githubuserapp.R
 import com.example.githubuserapp.adapter.ListUserAdapter
 import com.example.githubuserapp.databinding.FragmentHomeBinding
+import com.example.githubuserapp.databinding.FragmentSettingBinding
+import com.example.githubuserapp.datastore.SettingPreferences
 import com.example.githubuserapp.response.ItemsItem
 import com.example.githubuserapp.viewmodel.HomeViewModel
+import com.example.githubuserapp.viewmodel.SettingViewModel
+import com.example.githubuserapp.viewmodel.ViewModelFactory
+import com.google.android.material.switchmaterial.SwitchMaterial
 
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class HomeFragment : Fragment() {
-
-    companion object {
-        const val EXTRA_USER = "extra_user"
-    }
 
     private lateinit var listUserAdapter: ListUserAdapter
     private lateinit var rvUser: RecyclerView
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var bindingSetting: FragmentSettingBinding
+    private lateinit var switchTheme: SwitchMaterial
     private val listUser =  ArrayList<ItemsItem>()
     private val homeViewModel by viewModels<HomeViewModel>()
 
@@ -55,12 +66,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-        menu.findItem(R.id.menu_delete).isVisible = false
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,16 +75,35 @@ class HomeFragment : Fragment() {
             inflater,
             container,
             false
-        ).apply {
-            viewLifecycleOwner
-            HomeViewModel
-        }
+        )
+
+        bindingSetting = FragmentSettingBinding.inflate(
+            inflater,
+            container,
+            false
+        )
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        switchTheme = bindingSetting.switchTheme
+        val pref = SettingPreferences.getInstance(requireContext().dataStore)
+        val mainViewModel = ViewModelProvider(this, ViewModelFactory(pref))[SettingViewModel::class.java]
+
+        mainViewModel.getThemeSettings().observe(viewLifecycleOwner) {
+                isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                switchTheme.isChecked = true
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                switchTheme.isChecked = false
+            }
+        }
 
         rvUser = binding.rvUser
         rvUser.setHasFixedSize(true)
@@ -101,8 +125,6 @@ class HomeFragment : Fragment() {
                 return true
             }
         })
-
-
 
         homeViewModel.user.observe(viewLifecycleOwner) {
             showRecyclerView(it)
@@ -137,11 +159,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setSelectedUser(data: ItemsItem) {
-        val mBundle = Bundle()
-        mBundle.putParcelable(EXTRA_USER,data)
-        NavHostFragment
-            .findNavController(this)
-            .navigate(R.id.action_homeFragment_to_detailUserFragment, mBundle)
+        val toDetailUserFragment = HomeFragmentDirections.actionHomeFragmentToDetailUserFragment()
+        toDetailUserFragment.username = data.login
+        NavHostFragment.findNavController(this).navigate(toDetailUserFragment)
     }
 
     private fun showLoading(isLoading: Boolean) {

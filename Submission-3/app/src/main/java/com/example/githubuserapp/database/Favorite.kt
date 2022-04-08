@@ -17,11 +17,11 @@ data class Favorite (
     var username: String? = null,
 
 
-    @ColumnInfo(name = "id_user")
-    var id_user: Int = 0,
+    @ColumnInfo(name = "followers")
+    var followers: String? = null,
 
-    @ColumnInfo(name = "user_type")
-    var user_type: String? = null,
+    @ColumnInfo(name = "repository")
+    var repository: String? = null,
 
     @ColumnInfo(name = "avatar_url")
     var avatar_url: String? = null

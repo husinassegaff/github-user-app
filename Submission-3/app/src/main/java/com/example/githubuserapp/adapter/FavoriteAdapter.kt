@@ -1,5 +1,6 @@
 package com.example.githubuserapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.example.githubuserapp.database.Favorite
 import com.example.githubuserapp.databinding.ItemRowUserBinding
 import com.example.githubuserapp.helper.FavoriteDiffCallback
-import com.example.githubuserapp.response.ItemsItem
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
@@ -16,6 +16,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        Log.d("data", "Test masuk")
         this.onItemClickCallback = onItemClickCallback
     }
 
@@ -34,6 +35,10 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         holder.bind(listFavorites[position])
+
+        holder.itemView.setOnClickListener {
+            onItemClickCallback.onItemClicked(listFavorites[holder.adapterPosition])
+        }
     }
 
 
@@ -41,13 +46,15 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
         fun bind(favorite: Favorite) {
             with(binding) {
                 tvItemUsernameUser.text = favorite.username
-                tvItemIdUser.text = favorite.id_user.toString()
-                tvItemTypeUser.text = favorite.user_type
+                tvItemIdUser.text = favorite.followers.toString()
+                tvItemTypeUser.text = favorite.repository.toString()
                 Glide.with(this.cardView.context)
                     .load(favorite.avatar_url)
                     .circleCrop()
                     .into(imgItemPhoto)
             }
+
+
         }
     }
 
@@ -56,6 +63,6 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: ItemsItem)
+        fun onItemClicked(data: Favorite)
     }
 }

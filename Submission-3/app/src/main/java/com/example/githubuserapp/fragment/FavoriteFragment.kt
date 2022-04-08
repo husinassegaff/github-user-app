@@ -9,11 +9,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.githubuserapp.R
 import com.example.githubuserapp.adapter.FavoriteAdapter
 import com.example.githubuserapp.database.Favorite
 import com.example.githubuserapp.databinding.FragmentFavoriteBinding
-import com.example.githubuserapp.response.ItemsItem
 import com.example.githubuserapp.viewmodel.FavoriteViewModel
 
 class FavoriteFragment : Fragment() {
@@ -59,34 +57,28 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.getAllFavorites().observe(viewLifecycleOwner) {
             showRecyclerView(it as ArrayList<Favorite>)
         }
-
-
     }
 
     private fun showRecyclerView(listFavorite: ArrayList<Favorite>) {
-        rvFavorite.layoutManager = LinearLayoutManager(context)
+        rvFavorite.layoutManager = LinearLayoutManager(activity)
         listFavoriteAdapter = FavoriteAdapter()
+
         listFavoriteAdapter.setListFavorites(listFavorite)
         rvFavorite.adapter = listFavoriteAdapter
+
         rvFavorite.itemAnimator = DefaultItemAnimator()
 
         listFavoriteAdapter.setOnItemClickCallback(object : FavoriteAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: ItemsItem) {
+            override fun onItemClicked(data: Favorite) {
                 setSelectedUser(data)
             }
         })
-
     }
 
-    private fun setSelectedUser(data: ItemsItem) {
-        val mBundle = Bundle()
-        mBundle.putParcelable(EXTRA_USER, data)
-        NavHostFragment
-            .findNavController(this)
-            .navigate(R.id.action_favoriteFragment_to_detailUserFragment, mBundle)
-    }
+    private fun setSelectedUser(data: Favorite) {
+        val toDetailUserFragment = FavoriteFragmentDirections.actionFavoriteFragmentToDetailUserFragment()
+        toDetailUserFragment.username = data.username.toString()
+        NavHostFragment.findNavController(this).navigate(toDetailUserFragment)
 
-    companion object {
-        const val EXTRA_USER = "extra_user"
     }
 }

@@ -20,7 +20,7 @@ class FavoriteDiffCallback(private val mOldFavoriteList: List<Favorite>, private
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldEmployee = mOldFavoriteList[oldItemPosition]
         val newEmployee = mNewFavoriteList[newItemPosition]
-        return oldEmployee.username == newEmployee.username && oldEmployee.id_user == newEmployee.id_user
+        return oldEmployee.username == newEmployee.username
     }
 
 }
