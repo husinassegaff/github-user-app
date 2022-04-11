@@ -16,7 +16,6 @@ data class Favorite (
     @ColumnInfo(name = "username")
     var username: String? = null,
 
-
     @ColumnInfo(name = "followers")
     var followers: String? = null,
 
